@@ -1,12 +1,18 @@
+split
+rect
 resize
-
+compute_area_ratio
+find_contours
+compute_iou
+threshold
 stop
 
-erode
+compute_iou
 find_contours
+compute_area_ratio
+threshold
 rect
 split
-threshold
-compute_iou
-compute_area_ratio
+resize
 roi_color
+erode

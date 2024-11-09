@@ -46,6 +46,17 @@ std::vector<cv::Mat> erode(const cv::Mat& src_erode, const cv::Mat& src_dilate) 
     cv::Mat dst_erode, dst_dilate;
 
     // TODO: 在这里实现你的代码
-
+    cv::Mat gray_erode,gray_dilate,bin_erode,bin_dilate;
+    cv::cvtColor(src_erode,gray_erode,cv::COLOR_BGR2GRAY);
+    cv::cvtColor(src_dilate,gray_dilate,cv::COLOR_BGR2GRAY);
+    cv::threshold(gray_erode,bin_erode,50,255,cv::THRESH_BINARY);
+    cv::threshold(gray_dilate,bin_dilate,50,255,cv::THRESH_BINARY);
+    cv::Mat kernel=cv::getStructuringElement(cv::MORPH_RECT,cv::Size(5,5));
+    cv::Point anchor(-1,-1);
+    int iterations=2;
+    int borderType=cv::BORDER_CONSTANT;
+    const cv::Scalar& borderValue(255);
+    cv::erode(bin_erode,dst_erode,kernel,anchor,iterations,borderType,borderValue);
+    cv::dilate(bin_dilate,dst_dilate,kernel,anchor,iterations,borderType,borderValue);
     return {dst_erode, dst_dilate};
 }
